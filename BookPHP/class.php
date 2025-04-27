@@ -312,12 +312,6 @@
     }
     echo $products["paper"]["laser"];
     */
-
-
-
-    
-
-
     ?>
 </body>
 </html>

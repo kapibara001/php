@@ -6,7 +6,7 @@
         public string $name;
         public float $weight, $height;
 
-        function __construct(string $name, float $weight, float $height) {
+        public function __construct(string $name, float $weight, float $height) {
             $this->name = $name;
             $this->weight = $weight;
             $this->height = $height;
@@ -46,9 +46,36 @@
 
     $dog = new Dog('World!', 10, 70);
     $dog->AddCommand('RE');
+
+
+    // _________________________________________________________________
+
+    // protected - мод. доступа, доступен в этом классе и в классах дочерних
+    class Gun {
+        protected int $damage, $volume;
+        protected string $typeShot;
+
+        public function __construct(int $damage, int $volume, string $typeShot) {
+            $this->damage = $damage;
+            $this->volume = $volume;
+            $this->typeShot = $typeShot;
+        }
+
+        public function infoAboutShot() {
+            if ($this->volume >= 1 && $this->volume <= 10) {
+                return "Damage: $this->damage. Need Reload";
+            } else if($this->volume == 0) {
+                return "RELOAD!!!";
+            } else {
+                return "Damage: $this->damage. $this->typeShot";
+            }
+        }
+    }
+
+    $m4 = new Gun('28', 21, 'auto');
 ?>
 
-~<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -57,8 +84,11 @@
 </head>
 <body>
     <?php 
-        echo json_encode($cat);
+        echo json_encode($cat) . "<br>"; // json_encode - местный JSON.strigify
+        
         echo json_encode($dog);
+
+        echo $m4->infoAboutShot();
     ?>
 </body>
 </html>
