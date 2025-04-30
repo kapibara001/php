@@ -177,6 +177,20 @@
         <div style="width: 100%; display: flex; justify-content: center">
             <button type="submit" class="btn btn-warning" class="butn" >Проверить</button>
         </div>
+
+
+        <!-- 6 Задание -->
+        <?php
+            $tag = 'div';
+            $background_color = 'blue';
+            $color = 'red';
+            $width = '100px';
+            $height = '100px';
+
+            echo "<$tag style=\"background-color:$background_color; color:$color; width:$width; height:$height;\">";
+            echo "Hello";
+            echo "</$tag>";
+        ?>
     </form>
 </body>
 </html>
