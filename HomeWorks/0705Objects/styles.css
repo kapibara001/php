@@ -1,0 +1,8 @@
+.myform {
+    border: 2px dotted black;
+    border-radius: 10px;
+
+    width: max-content;
+
+    padding: 10px;
+}
