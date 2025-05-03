@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Second 30.04</title>
 </head>
 <body>
@@ -109,6 +110,26 @@
                 </form>';
         } else {
             echo "<h1>You registered</h1>";
+        }
+    }
+
+    { // 7 
+        $width = 900;
+        $height = 600;
+
+        $marginLeft = 850;
+        $marginTop = 550;
+        $color = "green";
+
+        if (($width - $marginLeft >= 50) && ($height - $marginTop >= 50)) {
+            echo "  <p>X = $marginLeft, Y = $marginTop, Color = $color
+                    <div style=\"display: flex; justify-content: center;\">
+                        <div class=\"myDiv\">
+                            <div style=\"width: 50px; height: 50px; background-color: $color; margin-top: {$marginTop}px; margin-left: {$marginLeft}px;\"></div>
+                        </div>
+                    </div>";
+        } else {
+            echo "<h1>Недопустимое значение координат</h1>";
         }
     }
     ?>
