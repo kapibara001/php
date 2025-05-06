@@ -31,8 +31,6 @@
 
                     $category = new Category($name);
                     $_SESSION["categories"][] = $category;
-                } else {
-                    echo "<script>alert('Список не может быть пустым')</script>";
                 }
             }
         }
@@ -49,25 +47,41 @@
 <body>
     <form action="#" method="POST" class="myform">
         <div>
-            <input type="text" placeholder="Name" name="categoryName" requaried>
+            <input type="text" placeholder="Name" name="categoryName">
             <button type="submit">Add</button>
         </div>
         
         <h3>Список категорий:</h3>
         <ul>
-            <?php foreach ($_SESSION['categories'] as $cat): ?>
-                <li>
-                    <h4><?= htmlspecialchars($cat->getCategoryName()) ?>
-                </h4>
-            </li>
-            <?php endforeach; ?>
+            <?php 
+            if (count($_SESSION['categories']) == 0) {
+                echo '<h4>Список категорий пуст</h4>';
+            } else { 
+                foreach ($_SESSION['categories'] as $cat): ?>
+                    <li>
+                        <h4><?= htmlspecialchars($cat->getCategoryName()) ?></h4>
+                    </li>
+                <?php endforeach; } ?>
         </ul>
         
         <button type="submit" name="CLEAR">Очистить</button>
+    </form> 
 
-        <form action="#" method="POST" class="myform">
-            <button type="submit">а</button>
-        </form>
+    <form action="#" class="myform"> <!-- Форма добавления вещей в категорию -->
+        <select name="elementsInCategories">
+        <?php 
+        if (count($_SESSION['categories']) == 0) { 
+            echo '<option value="none">Список пуст</option>';
+        } else {
+            for ($i = 0; $i < count($_SESSION['categories']); $i++) {
+                $catName = $_SESSION['categories'][$i]->getCategoryName();
+                echo '<option value="' . htmlspecialchars($catName) . '">' . htmlspecialchars($catName) . '</option>';
+            }
+        }
+        ?>
+        <input type="text" name="elName" placeholder="Name">
+        <input type="text" name="elPrice" placeholder="Price">
+        </select>
     </form>
 </body>
 </html>
