@@ -16,7 +16,6 @@
     class Cat extends Animals {
         public $countlife;
 
-        
         public function __construct(string $name, float $weight, float $height, int $countlife = 9) {
             // $this->name = $name;
             // $this->weight = $weight; Можно сделать и так, но можно сделать и по-другому
