@@ -1,0 +1,14 @@
+.myform {
+    border: 2px dotted black;
+    border-radius: 10px;
+
+    width: max-content;
+
+    padding: 10px;
+}
+
+.selectCategory {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    font-size: 15px;
+}
