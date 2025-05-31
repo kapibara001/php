@@ -1,7 +1,7 @@
 <?php
     $id = $_GET['id'];
 
-    $connector = new mysqli("localhost", "root", "pa33279d12", 'sakila', 3306);
+    $connector = new mysqli("localhost", "root", "qwe2", 'sakila', 3306);
 
     $actor = $connector->query(
         "

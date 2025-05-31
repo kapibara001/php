@@ -21,7 +21,7 @@
          *  port - номер порта сервера, integer
          * )
          */
-        $connector = new mysqli("localhost", "root", "pa33279d12", 'sakila', 3306);
+        $connector = new mysqli("localhost", "root", "qwe2", 'sakila', 3306);
         if($connector->connect_error) {
             echo "<h2> $conn->connect_error </h2>";
         } else {

@@ -11,11 +11,12 @@
         <a href="actor/create">Добавить нового</a>
     </p>
     <?php
-        $connector = new mysqli("localhost", "root", "pa33279d12", 'sakila', 3306); // Подключение к БД
-        if($connector->connect_error) { // Если не получилось подключиться 
+        $connector = new mysqli("localhost", "root", "qwe2", 'sakila', 3306);
+        if($connector->connect_error) {
             echo "<h2> $conn->connect_error </h2>";
         } else {
             // метод query - метод, который передает запрос в БД
+
             $actors = $connector->query("
                 SELECT 
                     actor_id,
@@ -28,8 +29,8 @@
             foreach($actors as $item_actor) {
                 echo "
                     <div style='border: 3px solid black; border-radius: 15px; padding: 15px;'>
-                        <p>" . $item_actor['full_name'] . "</p>
-                        <a href='actor?id=" . $item_actor['actor_id'] . "'>Подробнее</a>
+                        <p>".$item_actor['full_name']."</p>
+                        <a href='actor?id=".$item_actor['actor_id']."'>Подробнее</a>
                     </div>
                 ";
             }
