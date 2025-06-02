@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\NavigateController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+
 Route::get('/', function () { // Главная страница пока что 
-    return "Hello";
+    return view('app');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -23,11 +25,11 @@ Route::get('/test', function() {
     return view('test'); // Обращение к файлу views внутри команды view и получение оттуда разметки в файле test.blade.php
 });
 
-Route::get('/Auth', function() {
+Route::get('/auth', function() {
     return view('myFolder.auth');
 });
 
-Route::get('/Arrays', function() {
+Route::get('/arrays', function() {
     return view('forArrays', [
         "role"=>"admin", // Если удалим, будет выведена разметка "Обратитесь к админам"
         "first_name"=>"Maxim",
@@ -40,6 +42,12 @@ Route::get('/Arrays', function() {
         ]
     ]);
 });
+
+Route::get('/contacts', [NavigateController::class, 'toContact'])->name('contactPage');
+
+Route::get('/about', [NavigateController::class, 'toAbout'])->name('aboutPage');
+
+Route::get('/bucket', [NavigateController::class, 'toBucket'])->name('Bucket');
 
 
 require __DIR__.'/settings.php';

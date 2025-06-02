@@ -46,12 +46,5 @@
             @endforeach
         </table>
     @endisset
-
-    <span>
-        @class (
-            'text',
-
-        )
-    </span>
 </body>
 </html>
