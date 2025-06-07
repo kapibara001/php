@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body class="font-sans antialiased">
-        <li>
-            <a href="/products">Продукты</a>
-        </li>
+@extends('tamplates.headerTemplate')
 
-    </body>
-</html>
+@section('title', 'Главная страница')
+
+@section('main')
+    <li>
+        <a href="/products">Продукты</a>
+    </li>
+
+    <li>
+        <a href="/adminPanel">Админ панель</a>
+    </li>
+@endsection

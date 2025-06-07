@@ -2,10 +2,6 @@
 
 @section('title', 'Продукты')
 
-@section('header')
-    <a href="/">Главная страница</a>
-@endsection
-
 @section('main')
     <table class="table table-striped" style="width: 550px;">
         <thead>
