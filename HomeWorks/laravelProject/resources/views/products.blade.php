@@ -13,6 +13,7 @@
                 <td>Название</td>
                 <td>Цена</td>
                 <td>Наличие</td>
+                <td>Рейтинг</td>
             </tr>
         </thead>
         @foreach ($products as $product)
@@ -27,6 +28,7 @@
                         <td style="color: red">{{ $product['price'] }}</td>
                         <td>Нет в наличии</td>
                     @endif
+                    <td>{{ round($product['rating'], 2) }}</td>
                 </tr>
             @endif
         @endforeach
