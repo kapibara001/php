@@ -31,14 +31,14 @@ Route::get('/auth', function() {
 
 Route::get('/arrays', function() {
     return view('forArrays', [
-        "role"=>"admin", // Если удалим, будет выведена разметка "Обратитесь к админам"
-        "first_name"=>"Maxim",
-        "last_name"=>"Sokolov",
-        "message"=>"Hello world!",
-        "age"=>"18",
-        "db"=> [
-            "dbname"=>"Sakila",
-            "port"=>5555,
+        "role" => "admin", // Если удалим, будет выведена разметка "Обратитесь к админам"
+        "first_name" => "Maxim",
+        "last_name" => "Sokolov",
+        "message" => "Hello world!",
+        "age" => "18",
+        "db" => [
+            "dbname" => "Sakila",
+            "port" => 5555,
         ]
     ]);
 });
@@ -48,6 +48,8 @@ Route::get('/contacts', [NavigateController::class, 'toContact'])->name('contact
 Route::get('/about', [NavigateController::class, 'toAbout'])->name('aboutPage');
 
 Route::get('/bucket', [NavigateController::class, 'toBucket'])->name('Bucket');
+
+
 
 
 require __DIR__.'/settings.php';
