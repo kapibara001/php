@@ -6,7 +6,7 @@
     <title>Третье задание</title>
 </head>
 <body>
-    <a href="/homework">Back</a>
+    <a href="{{ route('pageWithAllHW') }}">Back</a>
     <h1>Рандоманая генерация точек</h1> 
 
     <form action="{{ route('Third') }}">
