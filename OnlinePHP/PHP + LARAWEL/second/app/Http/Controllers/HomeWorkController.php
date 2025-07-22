@@ -76,7 +76,7 @@ class HomeWorkController extends Controller {
     // -------------------- #4 
 
     public function toFourth() {
-        $db = [
+        $db = [ // Воображаемая база данных
             [
                 'name' => 'Iphone 16 pro',
                 'color' => 'black',
@@ -120,17 +120,17 @@ class HomeWorkController extends Controller {
             $size = $dbase[$i]['size'];
             $price = $dbase[$i]['price'];
 
-            $html .=    "<div class\"maincont\" style=\"padding: 10px; border: 1px solid black; border-radius: 20px;\">
-                            <div class=\"imgclass\" style=\"display: flex; justify-content: center; height: 200px\">
+            $html .=    "<div class=\"maincont\">
+                            <div class=\"imgclass\">
                                 <img src=\"$im\">
                             </div>
-                            <div class=\"parameters\" style=\"width=100%; margin-top: 10px\">
+                            <div class=\"parameters\">
                                 <p style=\"font-size: 25px; margin: 0\"><b>Price</b>: $price</p>
                                 <p style=\"font-size: 25px; margin: 0\"><b>$name</b></p>
                                 <p style=\"font-size: 25px; margin: 0\"><b>Color</b>: $color</p>
                                 <p style=\"font-size: 25px; margin: 0\"><b>Size</b>: $size</p>
                             </div>
-                            <button style=\"width: 100%; height: 50px; border-radius: 20px; font-size: 20px; background-color: green; margin-top: 10px; color: white; border: none\">В корзину</button>
+                            <button class=\"buttonBucket\" style=\"\">В корзину</button>
                         </div>";
         }
 
