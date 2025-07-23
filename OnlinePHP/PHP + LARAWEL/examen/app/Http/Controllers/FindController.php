@@ -1,22 +1,33 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Null_;
 
-class FindController extends Controller {
-    public function clickSearchBtn(Request $request) {
-        $question = Null;
+class FindController extends Controller{
+    public function clickSearchBtn(Request $request)  {
+        $instructions = [];
+        $folder = base_path("app/Instructions");
 
         if ($request->has('NameInstruction') && trim($request->input('NameInstruction')) != '') {
-            // Обработка из базы данных...
-            $question = 'Инструкция по запросу: ' . $request->input('NameInstruction');
 
-            return view('page', ['question' => $question]);
-        } 
+            $files = scandir($folder);
 
-        return view('page', ['question' => $question]); 
+            foreach ($files as $file) {
+                if ($file !== '.' && $file !== '..' && is_file($folder . '/' . $file)) {
+                    $filenameForSearch = strtolower(trim($file));
+                    $instructions[] = [
+                        "filename" => $file,
+                        // "content" => file_get_contents($folder . '/' . $file),
+
+                        "filenameForSearch" => $filenameForSearch,
+                    ];
+                }
+            }
+        }
+
+        return view('page', ['instructions' => $instructions]);
+        
     }
 }
