@@ -8,28 +8,64 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class="headText">Поиск инструкций по названию</h1>
+    <h1 class="headText">Инструкции к мебели</h1>
     <div class="mainBigCont">
         <div class="contentCont">
             <form method="GET" action="{{ route('clickBtn') }}" style="text-align: center; margin-top: 20px;">
-                <input name="NameInstruction" type="text" class="InputNameInstruction" placeholder="Введите название инструкции">
+                <input name="NameInstruction" type="text" class="InputNameInstruction" placeholder="Введите название инструкции" value="{{ $find }}" style="margin-bottom: 10px">
                 <input type="submit" value="Search" class="searchBtn">
             </form>
             
             @if (!empty($instructions))
-                <div class="instructionBlock">
-                    <div>
-                        <ul>
-                            @foreach ($instructions as $instruction)
-                                <li>
-                                    <h4>{{ $instruction['filename'] }}</h4>
-                                </li>
-                            @endforeach
-                        </ul>
+                @php
+                    $num = 1;
+                @endphp
+                @foreach ($instructions as $instruction)
+                    <div class="instructionBlock">
+                        <div class="instructionInfo">
+                            <div class="numInfoBlock">{{ $num }}</div>
+                            <div class="InstrNameCss">
+                                <span>{{ $instruction['filename'] }}</span>
+                            </div>
+                            <div class="actionBox">
+                                <img src="https://img.icons8.com/?size=100&id=WXhxdMfsM3G9&format=png&color=000000" alt="">
+                            </div>
+                            <div class="actionBox">
+                                <img src="https://img.icons8.com/?size=100&id=zqm8qSQh4GJU&format=png&color=000000" alt="">
+                            </div>
+
+                            <div class="pdfViewerContainer">
+                                <object data="storage/instructions/{{ $instruction['filename'] }}" type="application/pdf" width="100%" height="600px"></object>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    @php
+                        $num += 1
+                    @endphp
+                @endforeach
             @endif
         </div>
     </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const blocks = document.querySelectorAll('.instructionInfo');
+
+            blocks.forEach(block => {
+                block.addEventListener('click', function () {
+                    const isActive = block.classList.contains('active');
+
+                    // Закрыть 
+                    blocks.forEach(b => b.classList.remove('active'));
+
+                    // Открыть 
+                    if (!isActive) {
+                        block.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -5,29 +5,35 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class FindController extends Controller{
-    public function clickSearchBtn(Request $request)  {
+class FindController extends Controller
+{
+    public function clickSearchBtn(Request $request)
+    {
         $instructions = [];
-        $folder = base_path("app/Instructions");
+        $folder = base_path("public/storage/Instructions");
+        $search = trim($request->input('NameInstruction'));
 
-        if ($request->has('NameInstruction') && trim($request->input('NameInstruction')) != '') {
-
+        if ($search !== '') {
             $files = scandir($folder);
+            $findWord = strtolower($search);
 
             foreach ($files as $file) {
                 if ($file !== '.' && $file !== '..' && is_file($folder . '/' . $file)) {
-                    $filenameForSearch = strtolower(trim($file));
-                    $instructions[] = [
-                        "filename" => $file,
-                        // "content" => file_get_contents($folder . '/' . $file),
-
-                        "filenameForSearch" => $filenameForSearch,
-                    ];
+                    if (str_contains(mb_strtolower($file), mb_strtolower($findWord))) {
+                        $instructions[] = [
+                            "filename" => $file,
+                            "content" => file_get_contents($folder . '/' . $file),
+                        ];
+                    }
                 }
             }
+        } else {
+            $search = null;
         }
 
-        return view('page', ['instructions' => $instructions]);
-        
+        return view('page', [
+            'instructions' => $instructions,
+            'find' => $search
+        ]);
     }
 }
