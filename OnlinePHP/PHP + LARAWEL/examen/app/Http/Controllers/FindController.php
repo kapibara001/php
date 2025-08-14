@@ -15,11 +15,11 @@ class FindController extends Controller
 
         if ($search !== '') {
             $files = scandir($folder);
-            $findWord = strtolower($search);
+            $search = strtolower($search);
 
             foreach ($files as $file) {
                 if ($file !== '.' && $file !== '..' && is_file($folder . '/' . $file)) {
-                    if (str_contains(mb_strtolower($file), mb_strtolower($findWord))) {
+                    if (str_contains(mb_strtolower($file), mb_strtolower($search))) {
                         $instructions[] = [
                             "filename" => $file,
                             "content" => file_get_contents($folder . '/' . $file),
