@@ -173,7 +173,7 @@
         border: none;
     }
 
-.contForReg {
+.bgblacker {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -186,13 +186,14 @@
 
     justify-content: center;
     align-items: center;
+    display: flex; /* Удалить потом */
 }
 
 .hiden {
     display: none;
 }
 
-.reg {
+.reg, .rep {
     width: 600px;
     height: max-content;
 

@@ -50,7 +50,7 @@
                                 </a>
                             </div>
 
-                            <div class="actionBox">
+                            <div class="actionBox" id="reportBtn">
                                 <img src="https://img.icons8.com/?size=100&id=zqm8qSQh4GJU&format=png&color=000000" alt="">
                             </div>
 
@@ -67,11 +67,12 @@
         </div>
     </div>
 
-    <div class="contForReg hiden">
+    <!-- Окно регистрации -->
+    <div class="bgblacker hiden" id="regwin">
         <div class="reg">
             <div class="closeBtn">
                 <p>
-                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" alt="" id="closeBtn">
+                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" id="closeRegBtn">
                 </p>
                 <div class="regContent">
                     <h1 class="textReg">Регистрация</h1>
@@ -109,7 +110,19 @@
         </div>
     </div>
 
-    <script> // Скрипт по открыванию\закрыванию pdf вьювера
+    <!-- Форма отправки жалобы на инструкцию -->
+    <div class="bgblacker hiden" id="report">
+        <div class="rep">
+            <div class="closeBtn">
+                <p>
+                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" alt="" id="closeRepBtn">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипт по открыванию\закрыванию pdf вьювера -->
+    <script> 
         document.addEventListener('DOMContentLoaded', function () {
             const blocks = document.querySelectorAll('.instructionInfo');
 
@@ -129,19 +142,34 @@
         });
     </script>
 
-    <script> // Закрытие/открытие окна регистрации 
-        const closeBtn = document.getElementById('closeBtn');
-        const regWindow = document.getElementsByClassName('contForReg')[0];
+    <!-- Закрытие/открытие окна регистрации и жалобы на инструкцию  -->
+    <script> 
+        const regWindow = document.getElementById('regwin'); // Само окно регистрации
+        const closeRegWindow = document.getElementById('closeRegBtn'); // Крестик в окне регистрации
+        const openRegWindow = document.getElementById('1254t'); // Кнопка регистрации сверху справа
+        
+        const reportWindow = document.getElementById("report"); // Само окно жалобы
+        const closeRepWindow = document.getElementById("closeRepBtn"); // Крестик для закрытия окна с жалобой
+        const reportBtn = document.getElementById("reportBtn"); // Кнопка жалобы в списке инструкций
 
-        const openRegWindow = document.getElementById('1254t');
 
-        closeBtn.onclick = function() {
+
+        closeRegWindow.onclick = function() {
             regWindow.style.display = 'none';
         }
 
         openRegWindow.onclick = function() {
             regWindow.style.display = 'flex';
         }
+
+        closeRepWindow.onclick = function() {
+            reportWindow.style.display = "none";
+        }
+
+        reportBtn.onclick = function() {
+            reportWindow.style.display = 'flex';
+        }
+
     </script>
 </body>
 </html>
