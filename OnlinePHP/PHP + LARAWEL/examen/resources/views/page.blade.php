@@ -11,7 +11,7 @@
     @guest
         <div class="navCont">
             <div class="inNavCont">
-                <button class="btn btn-light">Вход</button>
+                <button class="btn btn-light" id="1255t">Вход</button>
                 <button class="btn btn-success SighInRegBtns" id="1254t">Регистрация</button>
             </div>
         </div>
@@ -21,7 +21,6 @@
     @auth 
 
     @endauth
-    
 
     <h1 class="headText">Инструкции к мебели</h1>
     <div class="mainBigCont">
@@ -50,7 +49,7 @@
                                 </a>
                             </div>
 
-                            <div class="actionBox" id="reportBtn">
+                            <div class="actionBox reportBtn" data-name="{{ $instruction['filename'] }}">
                                 <img src="https://img.icons8.com/?size=100&id=zqm8qSQh4GJU&format=png&color=000000" alt="">
                             </div>
 
@@ -101,7 +100,47 @@
                         <div style="text-align: center; margin-top: 10px;">
                             <button class="btn btn-primary" type="submit" name="registration">Зарегистрироваться</button>
                             <span>или</span>
-                            <button class="btn btn-secondary" type="submit" name="signin">Войти</button>
+                            <button class="btn btn-secondary" type="submit">Войти</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Окно входа -->
+    <div class="bgblacker hiden" id="signwin">
+        <div class="reg">
+            <div class="closeBtn">
+                <p>
+                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" id="closeSignBtn">
+                </p>
+                <div class="signContent">
+                    <h1 class="textReg">Вход в аккаунт</h1>
+
+                    <form action="{{ route('signin') }}" method="POST">
+                        @csrf
+
+                        @if ($errors->any())
+                            <div style="color: red; margin-bottom: 10px;">
+                                <ul style="margin: 0; padding-left: 20px;">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <div class="input-group flex-nowrap">
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" name="name">
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" name="password">
+                        </div>
+
+                        <div style="text-align: center; margin-top: 10px;">
+                            <button class="btn btn-primary" type="submit">Войти</button>
                         </div>
                         
                     </form>
@@ -115,11 +154,47 @@
         <div class="rep">
             <div class="closeBtn">
                 <p>
-                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" alt="" id="closeRepBtn">
+                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" alt="" id="closeRepBtn">    
                 </p>
+                <h2 style="text-align: center">Жалоба на инструкцию</h2>
+                <form action="{{ route('reportCheck') }}" method="POST">
+                    @csrf
+                    
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Название инструкции" aria-label="Username" id="inpNameInst" name="reportName" readonly>
+                    </div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="reportText"></textarea>
+                        <label for="floatingTextarea">Текст жалобы</label>
+                    </div>
+
+                    <div style="width: 100%; display: flex; justify-content: center;">
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </div>
+                </form>
             </div>
         </div>
+
+        @if(session('success'))
+            <script>
+                alert("{{ session('success') }}");
+            </script>
+        @endif
+
+        @if (session('registerinfo'))
+            <script>
+                alert("{{ session('registerinfo') }}")
+            </script>
+        @endif
+
+        @if (session('logininfo'))
+            <script>
+                alert("{{ session('logininfo') }}")
+            </script>
+        @endif
     </div>
+
 
     <!-- Скрипт по открыванию\закрыванию pdf вьювера -->
     <script> 
@@ -142,17 +217,15 @@
         });
     </script>
 
-    <!-- Закрытие/открытие окна регистрации и жалобы на инструкцию  -->
+    <!-- Закрытие/открытие окна регистрации/входа-->
     <script> 
         const regWindow = document.getElementById('regwin'); // Само окно регистрации
         const closeRegWindow = document.getElementById('closeRegBtn'); // Крестик в окне регистрации
         const openRegWindow = document.getElementById('1254t'); // Кнопка регистрации сверху справа
         
-        const reportWindow = document.getElementById("report"); // Само окно жалобы
-        const closeRepWindow = document.getElementById("closeRepBtn"); // Крестик для закрытия окна с жалобой
-        const reportBtn = document.getElementById("reportBtn"); // Кнопка жалобы в списке инструкций
-
-
+        const signWindow = document.getElementById('signwin');
+        const closeSignWindow = document.getElementById('closeSignBtn')
+        const openSignWindow = document.getElementById('1255t')
 
         closeRegWindow.onclick = function() {
             regWindow.style.display = 'none';
@@ -162,14 +235,39 @@
             regWindow.style.display = 'flex';
         }
 
-        closeRepWindow.onclick = function() {
-            reportWindow.style.display = "none";
+        closeSignWindow.onclick = function() {
+            signWindow.style.display = 'none';
         }
 
-        reportBtn.onclick = function() {
-            reportWindow.style.display = 'flex';
+        openSignWindow.onclick = function() {
+            signWindow.style.display = 'flex';
         }
 
     </script>
+
+    <!-- Скрипт для окна жалобы -->
+    <script>
+        const reportWindow = document.getElementById('report'); // окно жалобы
+        const closeReportWindow = document.getElementById('closeRepBtn'); // крестик в окне жалобы
+
+        const reportInput = document.getElementById('inpNameInst'); // поле с именем инструкции в окне жалобы 
+
+        const reportBtns = document.querySelectorAll('.reportBtn');
+
+        reportBtns.forEach(reportBtn => {
+            reportBtn.addEventListener('click', function() {
+                const instrName = reportBtn.getAttribute("data-name");
+                reportInput.value = instrName;
+                reportWindow.style.display = "flex";
+            })
+        });
+
+        closeReportWindow.addEventListener('click', function() {
+            reportWindow.style.display = "none";
+        });
+
+    </script>
+
+
 </body>
 </html>

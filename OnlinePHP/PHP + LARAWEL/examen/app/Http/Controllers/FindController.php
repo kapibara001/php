@@ -27,7 +27,6 @@ class FindController extends Controller
             }
         }
 
-
         return view('page', [
             'instructions' => $instructions,
             'find' => $search,

@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class RegistrationController extends Controller {
     public function indentification(Request $request) {
-        $request->validate(
+        $validated = $request->validate(
         [ // Установка правил
             'name' => 'required|min:3|max:20',
             'password' => 'required|min:8',
@@ -21,8 +22,19 @@ class RegistrationController extends Controller {
             'password.min' => 'Пароль не может быть короче 8 символов',
         ]);
 
-        return view('checkuser', [
-            'name' => $request->input('name'), 'password' => $request->input('password')
-        ]);
+        if (!User::where('username', $validated['name'])->exists()) {
+
+            User::create([
+            "username" => $validated['name'],
+            "userpass" => bcrypt($validated['password']), // Хэширование пароля
+            "userstatus" => "user",
+            ]);
+
+            return redirect()->back()->with('registerinfo', "Пользователь зарегистрирован. Теперь войдите!");
+
+        } else {
+            return redirect()->back()->with('registerinfo', "Такой пользователь уже существует. Выполните вход.");
+        }
+
     }
 }
