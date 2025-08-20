@@ -99,8 +99,6 @@
 
                         <div style="text-align: center; margin-top: 10px;">
                             <button class="btn btn-primary" type="submit" name="registration">Зарегистрироваться</button>
-                            <span>или</span>
-                            <button class="btn btn-secondary" type="submit">Войти</button>
                         </div>
                         
                     </form>
