@@ -8,19 +8,34 @@
     <title>Document</title>
 </head>
 <body>
-    @guest
-        <div class="navCont">
-            <div class="inNavCont">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <div class="navCont">
+        <div class="inNavCont">
+            @guest
                 <button class="btn btn-light" id="1255t">Вход</button>
                 <button class="btn btn-success SighInRegBtns" id="1254t">Регистрация</button>
-            </div>
+            @endguest
+
+            @auth
+                @if (Auth::check() && Auth::user()->userstatus !== 'admin')
+                    <button class="btn btn-primary" style="margin-right: 20px">Загрузить инструкцию</button>
+                    <span style="margin-right: 10px;">{{ auth()->user()->username }}</span>
+                    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Выйти</button>
+                    </form>
+                @else 
+                    <a href="/users"style="text-decoration: none; color: black; margin-right: 20px" class="btn btn-warning">Пользователи</a>
+                    <a href="/reports" style="text-decoration: none; color: white; margin-right: 20px" class="btn btn-primary">Жалобы</a>
+                    <span style="margin-right: 10px;">{{ auth()->user()->username }}</span>
+                    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Выйти</button>
+                    </form>
+                @endif
+            @endauth
         </div>
-    @endguest
-
-    <!-- Если пользователь авторизован, тут должен быть аватар профиля и его имя -->
-    @auth 
-
-    @endauth
+    </div>
 
     <h1 class="headText">Инструкции к мебели</h1>
     <div class="mainBigCont">
@@ -43,11 +58,22 @@
                                 <span>{{ $instruction['filename'] }}</span>
                             </div>
 
-                            <div class="actionBox">
-                                <a href="storage/instructions/{{ $instruction['filename'] }}" download>
-                                    <img src="https://img.icons8.com/?size=100&id=WXhxdMfsM3G9&format=png&color=000000" alt="">
-                                </a>
-                            </div>
+                            @guest
+                                <div class="actionBox">
+                                    <a href="">
+                                        <img src="https://img.icons8.com/?size=100&id=WXhxdMfsM3G9&format=png&color=000000" alt="" id="nonInstall">
+                                    </a>
+                                </div>
+                            @endguest
+
+                            @auth
+                                <div class="actionBox">
+                                    <a href="storage/instructions/{{ $instruction['filename'] }}" download>
+                                        <img src="https://img.icons8.com/?size=100&id=WXhxdMfsM3G9&format=png&color=000000" alt="">
+                                    </a>
+                                </div>
+                            @endauth
+                            
 
                             <div class="actionBox reportBtn" data-name="{{ $instruction['filename'] }}">
                                 <img src="https://img.icons8.com/?size=100&id=zqm8qSQh4GJU&format=png&color=000000" alt="">
@@ -97,6 +123,8 @@
                             <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" name="password">
                         </div>
 
+                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" name="reCAPTCHA"></div>
+
                         <div style="text-align: center; margin-top: 10px;">
                             <button class="btn btn-primary" type="submit" name="registration">Зарегистрироваться</button>
                         </div>
@@ -137,6 +165,8 @@
                             <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" name="password">
                         </div>
 
+                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" name="reCAPTCHA"></div>
+
                         <div style="text-align: center; margin-top: 10px;">
                             <button class="btn btn-primary" type="submit">Войти</button>
                         </div>
@@ -166,6 +196,10 @@
                         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="reportText"></textarea>
                         <label for="floatingTextarea">Текст жалобы</label>
                     </div>
+
+                    @auth
+                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" name="reCAPTCHA"></div>
+                    @endauth
 
                     <div style="width: 100%; display: flex; justify-content: center;">
                         <button type="submit" class="btn btn-primary">Отправить</button>
@@ -264,6 +298,15 @@
             reportWindow.style.display = "none";
         });
 
+    </script>
+
+    <!-- Скрипт, активируюшийся при попытке скачивания у неавторизованных пользователей -->
+    <script>
+        const installBtn = document.getElementById('nonInstall');
+
+        installBtn.addEventListener('click', function(){
+            alert('Для скачивания файлов необходимо зарегистрироваться/авторизоваться на сайте');
+        })
     </script>
 
 

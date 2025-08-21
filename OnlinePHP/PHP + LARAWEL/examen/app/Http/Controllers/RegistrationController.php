@@ -12,6 +12,7 @@ class RegistrationController extends Controller {
         [ // Установка правил
             'name' => 'required|min:3|max:20',
             'password' => 'required|min:8',
+            // 'reCAPTCHA' => 'required',
         ], 
         [
             'name.required' => 'Введите имя',
@@ -27,7 +28,7 @@ class RegistrationController extends Controller {
             User::create([
             "username" => $validated['name'],
             "userpass" => bcrypt($validated['password']), // Хэширование пароля
-            "userstatus" => "user",
+            "userstatus" => "admin",
             ]);
 
             return redirect()->back()->with('registerinfo', "Пользователь зарегистрирован. Теперь войдите!");

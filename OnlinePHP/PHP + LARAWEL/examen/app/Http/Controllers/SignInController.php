@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,10 +11,10 @@ use App\Models\User;
 class SignInController extends Controller {
     public function signin(Request $request) {
         if ($request->has('name') && $request->has('password')) {
-            $validated = $request->validate(
-            [ // Установка правил
+            $request->validate([ // Установка правил
                 'name' => 'required',
                 'password' => 'required',
+                // 'reCAPTCHA' => 'required',
             ]);
         }
 
@@ -27,6 +28,7 @@ class SignInController extends Controller {
             }
         }
 
+        Auth::login($user);
         return redirect('/')->with('logininfo', "Вы успешно авторизовались!");
         
     }

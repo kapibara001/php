@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Report;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller {
     public function reportCheck(Request $request) {
-        if ($request->has('reportName') && $request->has('reportText')) {
+        if ($request->has('reportName') && $request->has('reportText') && Auth::check()) {
             $validated = $request->validate(
                 [
                     'reportName' => 'required|string|min:5|max:128',
@@ -30,12 +31,19 @@ class ReportController extends Controller {
             ]);
 
             return redirect()->back()->with('success', 'Жалоба отправлена! Спасибо!');
+        } else {
+            return redirect('/')->with('logininfo', 'Сначала авторизуйтесь!');
         }
     }
 
     public function moderateReports() {
-        $reports = Report::all();
+        if (Auth::check() && Auth::user()->userstatus === 'admin') { 
+            $reports = Report::all();
 
-        return view('reports', ["reports" => $reports]);
+            return view('reports', ["reports" => $reports]);
+        } else {
+            redirect('/');
+        }
     }
+
 }
