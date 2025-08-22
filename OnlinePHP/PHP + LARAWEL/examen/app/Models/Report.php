@@ -5,8 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Report extends Model {
+class Report extends Model
+{
     use HasFactory;
 
-    protected $fillable = ['reportName', 'reportText', 'is_moderated'];
+    protected $fillable = [
+        'reportName',
+        'reportText',
+        'reportedUser',
+    ];
 }

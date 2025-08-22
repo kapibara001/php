@@ -28,6 +28,7 @@ class ReportController extends Controller {
             Report::create([
                 'reportName' => $validated['reportName'],
                 'reportText' => $validated['reportText'],
+                'reportedUser' => $request->input('reportedUser'),
             ]);
 
             return redirect()->back()->with('success', 'Жалоба отправлена! Спасибо!');

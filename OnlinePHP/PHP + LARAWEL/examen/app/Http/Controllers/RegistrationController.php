@@ -24,8 +24,7 @@ class RegistrationController extends Controller {
         ]);
 
         if (!User::where('username', $validated['name'])->exists()) {
-
-            if ($validated['name'] === 'admin') {
+            if ($validated['name'] == 'admin') {
                 User::create([
                     "username" => $validated['name'],
                     "userpass" => bcrypt($validated['password']), // Хэширование пароля
@@ -39,7 +38,7 @@ class RegistrationController extends Controller {
                 ]);
             }
 
-            return redirect()->back()->with('registerinfo', "Пользователь зарегистрирован. Теперь войдите!");
+            return redirect()->back()->with('registerinfo', "Пользователь зарегистрирован! Можете теперь войти!");
 
         } else {
             return redirect()->back()->with('registerinfo', "Такой пользователь уже существует. Выполните вход.");

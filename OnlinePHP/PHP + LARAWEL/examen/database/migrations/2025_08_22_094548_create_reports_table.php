@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->string('reportName');
-            $table->string('reportText');
-            $table->boolean('isModered')->default('false');
+            $table->text('reportText');
+            $table->string('reportedUser');
             $table->timestamps();
         });
     }

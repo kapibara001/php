@@ -21,7 +21,7 @@
                         </b>
                     </p>
                     <p style="font-size: 20px">{{ $report['reportText'] }}</p>
-                    <p style="font-size: 17px">Пользователь: user</p>
+                    <p style="font-size: 17px">Пользователь: {{ $report['reportedUser'] }}</p>
                     <div class="adminActions"> <!-- Функции адмиина по заданию (удалить инструкцию и тп) -->
 
                     </div>

@@ -199,6 +199,7 @@
 
                     @auth
                         <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" name="reCAPTCHA"></div>
+                        <input type="hidden" name="reportedUser" value="{{ Auth::user()->username }}">
                     @endauth
 
                     <div style="width: 100%; display: flex; justify-content: center;">
@@ -207,26 +208,26 @@
                 </form>
             </div>
         </div>
-
-        @if(session('success'))
-            <script>
-                alert("{{ session('success') }}");
-            </script>
-        @endif
-
-        @if (session('registerinfo'))
-            <script>
-                alert("{{ session('registerinfo') }}")
-            </script>
-        @endif
-
-        @if (session('logininfo'))
-            <script>
-                alert("{{ session('logininfo') }}")
-            </script>
-        @endif
     </div>
 
+
+    @if(session('success'))
+        <script>
+            alert("{{ session('success') }}");
+        </script>
+    @endif
+
+    @if (session('registerinfo'))
+        <script>
+            alert("{{ session('registerinfo') }}")
+        </script>
+    @endif
+
+    @if (session('logininfo'))
+        <script>
+            alert("{{ session('logininfo') }}")
+        </script>
+    @endif
 
     <!-- Скрипт по открыванию\закрыванию pdf вьювера -->
     <script> 
@@ -308,6 +309,7 @@
             alert('Для скачивания файлов необходимо зарегистрироваться/авторизоваться на сайте');
         })
     </script>
+
 
 
 </body>
