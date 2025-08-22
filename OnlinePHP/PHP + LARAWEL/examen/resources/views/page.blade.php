@@ -73,7 +73,6 @@
                                     </a>
                                 </div>
                             @endauth
-                            
 
                             <div class="actionBox reportBtn" data-name="{{ $instruction['filename'] }}">
                                 <img src="https://img.icons8.com/?size=100&id=zqm8qSQh4GJU&format=png&color=000000" alt="">
