@@ -73,7 +73,10 @@
                             <input type="radio" name="doing" id="block" value="block">
                             <label for="block">Заблокировать</label>
                         </div>
-                        <!-- Добавить проверку на блокировку пользователя. Если нет -> кнопки разблокировать нет, вместо нее заблокировать и наоборот.-->
+                        <div>
+                            <input type="radio" name="doing" id="unblock" value="unblock">
+                            <label for="unblock">Разблокировать</label>
+                        </div>
                     <div>
                         <input type="hidden" id="usernameforaction" name="userrname">
                     </div>
