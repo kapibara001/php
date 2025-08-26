@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckInstruction;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FindController;
@@ -16,6 +17,9 @@ Route::post('/forReportCheck', [ReportController::class, 'reportCheck'])->name('
 
 Route::get('/users', [UsersController::class, 'userList'])->name('userList');
 Route::get('/actionWithUser', [UsersController::class, 'actionWithUser'])->name('actionWithUser');
+
+Route::post('/checkInstruction', [CheckInstruction::class, 'checkNewInstruction'])->name('checkInstruction');
+Route::get('/checkinginstructions', [CheckInstruction::class, 'openNewInsts']);
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

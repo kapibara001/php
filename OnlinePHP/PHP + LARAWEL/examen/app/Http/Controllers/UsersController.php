@@ -38,12 +38,25 @@ class UsersController extends Controller {
                             break;
 
                         case 'block':
+                            if ($user == Auth::user()->username) {
+                                return redirect('/users')->with('error', 'Ошибка. Заблокировать Вас может только другой администратор.');
+                            };
+
+                            if ($userinDB->userstatus == 'block') {
+                                return redirect('/users')->with('error', 'Ошибка. Пользователь заблокирован.');
+                            }
+
                             $userinDB->userstatus = 'block';
                             $userinDB->save();
                             break;
 
                         case 'unblock':
+                            if ($userinDB->userstatus == 'user') {
+                                return redirect('/users')->with('error', 'Ошибка. Пользователь не заблокирован.');
+                            }
 
+                            $userinDB->userstatus = 'user';
+                            $userinDB->save();
                             break;
                         }
 

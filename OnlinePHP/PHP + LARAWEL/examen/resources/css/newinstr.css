@@ -1,0 +1,68 @@
+html {
+    background-color: rgb(230, 230, 230);
+}
+
+.bigcont {
+    width: 100%;
+    height: max-content;
+
+    display: flex;
+    justify-content: center;
+}
+
+.smallcont {
+    width: max-content;
+    height: max-content;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.instrblock {
+    width: 1200px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column; /* все элементы сверху вниз */
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.topRow {
+    display: grid;
+    grid-template-columns: 1fr max-content; /* текст растягивается, кнопки справа */
+    align-items: center;
+    gap: 15px;
+}
+
+.instrblock p {
+    margin: 5px 0;
+}
+
+.buttonClass {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.buttonaction {
+    width: 40px;
+}
+
+.buttonaction:hover {
+    cursor: pointer;
+}
+
+.pdfViewer {
+    display: none;
+}
+
+.active {
+    height: 670px; /* с PDF */
+}
+
+.active .pdfViewer {
+    display: block;
+}

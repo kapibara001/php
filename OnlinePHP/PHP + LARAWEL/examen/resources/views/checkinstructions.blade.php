@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Предложения к публикации</title>
+    @vite(['resources/css/newInstr.css'])
+</head>
+<body>
+    <a href="/">Back</a>
+    <h1 style="text-align: center">Новые инструкции</h1>
+    <div class="bigcont">
+        <div class="smallcont">
+            @foreach ($instructions as $instruction)
+                <div class="instrblock">
+                    <div class="topRow">
+                        <div class="textBlock">
+                            <p style="font-size: 25px">{{ $instruction['instName'] }}</p>
+                            <p style="font-size: 20px">{{ $instruction['userDescription'] }}</p>
+                            <p style="font-size: 19px">{{ $instruction['uploaded_user'] }}</p>
+                        </div>
+
+                        <div class="buttonClass">
+                            <img src="https://cdn-icons-png.flaticon.com/512/166/166475.png" class="buttonaction">
+                            <img src="https://cdn-icons-png.flaticon.com/512/632/632922.png" class="buttonaction">
+                        </div>
+                    </div>
+
+                    <div class="pdfViewer">
+                        <object 
+                            data="data:application/pdf;base64,{{ base64_encode($instruction->file) }}" 
+                            type="application/pdf" width="100%" height="600px">
+                        </object>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <script>
+        const blocks = document.querySelectorAll('.instrblock');
+
+        blocks.forEach(block => {
+            block.addEventListener('click', function () {
+                const isActive = block.classList.contains('active');
+
+                // Закрыть 
+                blocks.forEach(b => b.classList.remove('active'));
+
+                // Открыть 
+                if (!isActive) {
+                    block.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

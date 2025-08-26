@@ -127,13 +127,13 @@ input[value="block"]:checked + label {
 }
 
 /* === Третий пункт (например "Предупреждение") — сделаем оранжевый */
-input[value="warn"] + label {
+input[value="unblock"] + label {
     color: #d35400;
     background: #fff;
     border: 2px solid #d35400;
 }
 
-input[value="warn"]:checked + label {
+input[value="unblock"]:checked + label {
     color: #fff;
     background: #d35400;
     border: 2px solid #d35400;

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/startpage.css'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Инструкции</title>
 </head>
 <body>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -17,15 +17,16 @@
             @endguest
 
             @auth
+                <button class="btn btn-primary" style="margin-right: 20px" id="loadInstruction">Загрузить инструкцию</button>
                 @if (Auth::check() && Auth::user()->userstatus !== 'admin')
-                    <button class="btn btn-primary" style="margin-right: 20px">Загрузить инструкцию</button>
                     <span style="margin-right: 10px;">{{ auth()->user()->username }}</span>
                     <form method="POST" action="{{ route('logout') }}" style="display: inline;">
                         @csrf
                         <button type="submit" class="btn btn-danger">Выйти</button>
                     </form>
                 @else 
-                    <a href="/users"style="text-decoration: none; color: black; margin-right: 20px" class="btn btn-warning">Пользователи</a>
+                    <a href="/checkinginstructions" style="text-decoration: none; color: black; margin-right: 20px" class="btn btn-info">Пользовательские инструкции</a>
+                    <a href="/users" style="text-decoration: none; color: black; margin-right: 20px" class="btn btn-warning">Пользователи</a>
                     <a href="/reports" style="text-decoration: none; color: white; margin-right: 20px" class="btn btn-primary">Жалобы</a>
                     <span style="margin-right: 10px;">{{ auth()->user()->username }}</span>
                     <form method="POST" action="{{ route('logout') }}" style="display: inline;">
@@ -92,122 +93,16 @@
     </div>
 
     <!-- Окно регистрации -->
-    <div class="bgblacker hiden" id="regwin">
-        <div class="reg">
-            <div class="closeBtn">
-                <p>
-                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" id="closeRegBtn">
-                </p>
-                <div class="regContent">
-                    <h1 class="textReg">Регистрация</h1>
-                    <h5 class="textReg">Откройте новые возмонжости после регистрации</h5>
-
-                    <form action="{{ route('identification') }}" method="POST">
-                        @csrf
-
-                        @if ($errors->any())
-                            <div style="color: red; margin-bottom: 10px;">
-                                <ul style="margin: 0; padding-left: 20px;">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <div class="input-group flex-nowrap">
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" name="name">
-                        </div>
-                        <div class="input-group flex-nowrap">
-                            <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" name="password">
-                        </div>
-
-                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" name="reCAPTCHA"></div>
-
-                        <div style="text-align: center; margin-top: 10px;">
-                            <button class="btn btn-primary" type="submit" name="registration">Зарегистрироваться</button>
-                        </div>
-                        
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('forms.registrationForm')
 
     <!-- Окно входа -->
-    <div class="bgblacker hiden" id="signwin">
-        <div class="reg">
-            <div class="closeBtn">
-                <p>
-                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" id="closeSignBtn">
-                </p>
-                <div class="signContent">
-                    <h1 class="textReg">Вход в аккаунт</h1>
-
-                    <form action="{{ route('signin') }}" method="POST">
-                        @csrf
-
-                        @if ($errors->any())
-                            <div style="color: red; margin-bottom: 10px;">
-                                <ul style="margin: 0; padding-left: 20px;">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <div class="input-group flex-nowrap">
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" name="name">
-                        </div>
-                        <div class="input-group flex-nowrap">
-                            <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" name="password">
-                        </div>
-
-                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" name="reCAPTCHA"></div>
-
-                        <div style="text-align: center; margin-top: 10px;">
-                            <button class="btn btn-primary" type="submit">Войти</button>
-                        </div>
-                        
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('forms.loginForm')
 
     <!-- Форма отправки жалобы на инструкцию -->
-    <div class="bgblacker hiden" id="report">
-        <div class="rep">
-            <div class="closeBtn">
-                <p>
-                    <img src="https://www.svgrepo.com/show/510921/close-lg.svg" alt="" id="closeRepBtn">    
-                </p>
-                <h2 style="text-align: center">Жалоба на инструкцию</h2>
-                <form action="{{ route('reportCheck') }}" method="POST">
-                    @csrf
-                    
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Название инструкции" aria-label="Username" id="inpNameInst" name="reportName" readonly>
-                    </div>
+    @include('forms.reportForm')
 
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="reportText"></textarea>
-                        <label for="floatingTextarea">Текст жалобы</label>
-                    </div>
-
-                    @auth
-                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" name="reCAPTCHA"></div>
-                        <input type="hidden" name="reportedUser" value="{{ Auth::user()->username }}">
-                    @endauth
-
-                    <div style="width: 100%; display: flex; justify-content: center;">
-                        <button type="submit" class="btn btn-primary">Отправить</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- Форма отправки заявки на загрузку инструкции -->
+    @include('forms.newinst');
 
 
     @if(session('success'))
@@ -227,6 +122,7 @@
             alert("{{ session('logininfo') }}")
         </script>
     @endif
+
 
     <!-- Скрипт по открыванию\закрыванию pdf вьювера -->
     <script> 
@@ -249,57 +145,6 @@
         });
     </script>
 
-    <!-- Закрытие/открытие окна регистрации/входа-->
-    <script> 
-        const regWindow = document.getElementById('regwin'); // Само окно регистрации
-        const closeRegWindow = document.getElementById('closeRegBtn'); // Крестик в окне регистрации
-        const openRegWindow = document.getElementById('1254t'); // Кнопка регистрации сверху справа
-        
-        const signWindow = document.getElementById('signwin');
-        const closeSignWindow = document.getElementById('closeSignBtn')
-        const openSignWindow = document.getElementById('1255t')
-
-        closeRegWindow.onclick = function() {
-            regWindow.style.display = 'none';
-        }
-
-        openRegWindow.onclick = function() {
-            regWindow.style.display = 'flex';
-        }
-
-        closeSignWindow.onclick = function() {
-            signWindow.style.display = 'none';
-        }
-
-        openSignWindow.onclick = function() {
-            signWindow.style.display = 'flex';
-        }
-
-    </script>
-
-    <!-- Скрипт для окна жалобы -->
-    <script>
-        const reportWindow = document.getElementById('report'); // окно жалобы
-        const closeReportWindow = document.getElementById('closeRepBtn'); // крестик в окне жалобы
-
-        const reportInput = document.getElementById('inpNameInst'); // поле с именем инструкции в окне жалобы 
-
-        const reportBtns = document.querySelectorAll('.reportBtn');
-
-        reportBtns.forEach(reportBtn => {
-            reportBtn.addEventListener('click', function() {
-                const instrName = reportBtn.getAttribute("data-name");
-                reportInput.value = instrName;
-                reportWindow.style.display = "flex";
-            })
-        });
-
-        closeReportWindow.addEventListener('click', function() {
-            reportWindow.style.display = "none";
-        });
-
-    </script>
-
     <!-- Скрипт, активируюшийся при попытке скачивания у неавторизованных пользователей -->
     <script>
         const installBtn = document.getElementById('nonInstall');
@@ -308,8 +153,6 @@
             alert('Для скачивания файлов необходимо зарегистрироваться/авторизоваться на сайте');
         })
     </script>
-
-        
 
 </body>
 </html>
