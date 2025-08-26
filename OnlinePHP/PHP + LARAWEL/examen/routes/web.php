@@ -15,6 +15,7 @@ Route::get('/reports', [ReportController::class, 'moderateReports']);
 Route::post('/forReportCheck', [ReportController::class, 'reportCheck'])->name('reportCheck');
 
 Route::get('/users', [UsersController::class, 'userList'])->name('userList');
+Route::get('/actionWithUser', [UsersController::class, 'actionWithUser'])->name('actionWithUser');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -28,8 +28,13 @@ class SignInController extends Controller {
             }
         }
 
-        Auth::login($user);
-        return redirect('/')->with('logininfo', "Вы успешно авторизовались!");
+        if ($user->userstatus == 'block') {
+            return redirect('/')->with('logininfo', 'Вы заблокированы за нарушение правил.');
+        } else {
+            Auth::login($user);
+            return redirect('/')->with('logininfo', "Вы успешно авторизовались!");
+        }
+
         
     }
 }
