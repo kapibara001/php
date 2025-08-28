@@ -46,7 +46,7 @@
     const loadedname = document.getElementById('loadedname');
     const filename = document.getElementById('filename');
 
-    loadedname.addEventListener('change', function(event) {
+    loadedname.addEventListener('change', function() {
         const file = loadedname.files[0]; // берём выбранный файл
         if (file) {
             const nameOnly = file.name;

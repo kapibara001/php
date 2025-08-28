@@ -80,7 +80,7 @@
                             </div>
 
                             <div class="pdfViewerContainer">
-                                <object data="storage/instructions/{{ $instruction['filename'] }}" type="application/pdf" width="100%" height="600px"></object>
+                                <iframe src="/storage/instructions/{{ $instruction['filename'] }}" class="pdfViewer"></iframe>
                             </div>
                         </div>
                     </div>
@@ -133,17 +133,24 @@
                 block.addEventListener('click', function () {
                     const isActive = block.classList.contains('active');
 
-                    // Закрыть 
+                    // Закрыть все
                     blocks.forEach(b => b.classList.remove('active'));
 
-                    // Открыть 
+                    // Открыть этот
                     if (!isActive) {
                         block.classList.add('active');
                     }
                 });
             });
+
+            // Отключаем всплытие клика для кнопок внутри .actionBox
+            document.querySelectorAll('.actionBox').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation(); // <-- не даём событию дойти до .instructionInfo
+                });
+            });
         });
-    </script>
+    </script>   
 
     <!-- Скрипт, активируюшийся при попытке скачивания у неавторизованных пользователей -->
     <script>

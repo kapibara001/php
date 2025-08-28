@@ -88,8 +88,8 @@
     height: 50px; 
 }
 
-.instructionInfo .active {
-    height: 670px; /* с PDF */
+.instructionInfo.active {
+    height: max-content; /* с PDF */
 }
 
     .pdfViewerContainer {
@@ -99,7 +99,8 @@
         margin-top: 10px;
     }
 
-    .instructionInfo .active .pdfViewerContainer {
+    .instructionInfo.active 
+    .pdfViewerContainer {
         display: block;
     }
 

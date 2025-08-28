@@ -20,6 +20,7 @@ Route::get('/actionWithUser', [UsersController::class, 'actionWithUser'])->name(
 
 Route::post('/checkInstruction', [CheckInstruction::class, 'checkNewInstruction'])->name('checkInstruction');
 Route::get('/checkinginstructions', [CheckInstruction::class, 'openNewInsts']);
+Route::post('/aftercheck', [CheckInstruction::class, 'deleteorapove'])->name('aftercheck');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

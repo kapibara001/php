@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Предложения к публикации</title>
+    
     @vite(['resources/css/newInstr.css'])
 </head>
 <body>
@@ -21,8 +22,8 @@
                         </div>
 
                         <div class="buttonClass">
-                            <img src="https://cdn-icons-png.flaticon.com/512/166/166475.png" class="buttonaction">
-                            <img src="https://cdn-icons-png.flaticon.com/512/632/632922.png" class="buttonaction">
+                            <img src="https://cdn-icons-png.flaticon.com/512/166/166475.png" class="buttonaction" name="delete" data-name="{{ $instruction['instName'] }}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/632/632922.png" class="buttonaction" name="aprove" data-name="{{ $instruction['instName'] }}">
                         </div>
                     </div>
 
@@ -37,6 +38,24 @@
         </div>
     </div>
 
+    @include('forms.deleteoraproveinstruction');
+
+    @if (session('error'))
+        <script>
+            alert("{{ session('error') }}")
+        </script>
+    @endif
+
+    <!-- Открытие формы вынесения решения по инструкции -->
+    <script>   
+        document.querySelectorAll('.buttonaction').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.getElementById('cont').style.display = 'flex';
+            })
+        });
+    </script>
+
+    <!-- Показ PDF -->
     <script>
         const blocks = document.querySelectorAll('.instrblock');
 
@@ -52,6 +71,12 @@
                     block.classList.add('active');
                 }
             });
+
+            document.querySelectorAll('.buttonaction').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                })
+            })
         });
     </script>
 </body>

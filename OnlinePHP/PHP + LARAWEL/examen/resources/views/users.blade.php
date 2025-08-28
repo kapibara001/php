@@ -77,9 +77,9 @@
                             <input type="radio" name="doing" id="unblock" value="unblock">
                             <label for="unblock">Разблокировать</label>
                         </div>
-                    <div>
-                        <input type="hidden" id="usernameforaction" name="userrname">
-                    </div>
+                        <div>
+                            <input type="hidden" id="usernameforaction" name="userrname">
+                        </div>
                     </div>
                     <hr>
                     <p style="text-align: center">
