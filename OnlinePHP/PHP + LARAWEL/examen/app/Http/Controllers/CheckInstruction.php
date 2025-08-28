@@ -66,7 +66,7 @@ class CheckInstruction extends Controller {
                         return redirect('/checkinginstructions')->with('error', $message);
                     } 
 
-                    Storage::disk('public')->put('storage/Instructions/' . $filename, $PDFfile);
+                    Storage::disk('public')->put('Instructions/' . $filename, $PDFfile);
                     $fieldinDB->delete();
 
                     $message .= $filename;
